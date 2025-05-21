@@ -4,15 +4,17 @@ for(let i = 0; i < Drumbutton.length; i++){
     Drumbutton[i].addEventListener("click", function(){ // i changed from handleclick a normal function to an anonymus function
         let buttonclicked = this.innerHTML;
         playSound(buttonclicked, this);
+        addAnimation(buttonclicked);
     });
     // noteabove it seems the anonymous function is more sophisticated, than just using an ordinary function for a particular reason
 }
 
 /* code that listen for keyboard presses
     this keyboard stuff stress me ehnn bro, so what i was doing before was that i wasnt checking if element exists before implementing the .style line of code, because if the 
-    the element does not exist the code will throw an error, and the keyboard press womt work*/
+    the element does not exist the code will throw an error, and the keyboard press wont work*/
    document.addEventListener("keydown", function(event){//note: the event is just a parameter that was passed to have acess to the keyboard key that was pressed 
-       playSound(event.key, null); //note: the .key attached to the event object(bcoz we have changed from parameter to object, bcoz of the dot notation) is property of the object
+       playSound(event.key, null);
+       addAnimation(event.key);//note: the .key attached to the event object(bcoz we have changed from parameter to object, bcoz of the dot notation) is property of the object
   });// that can be accessed to know or print the keyboard key that was pressed
 
 /* i can use this code below to attend to the first button in the list of buttons Drumbutton[0].addEventListener("click", handleClick);*/
@@ -60,4 +62,13 @@ function playSound(key, element){ // note: this entry is the variable that is re
 
         default: console.log(key);
     }
+}
+
+function addAnimation(recieve){
+    let effect = document.querySelector("." + recieve);
+    effect.classList.add("pressed");
+
+    setTimeout(() => {
+        effect.classList.remove("pressed")
+    }, 100);
 }
